@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:5173", // update this when deploying frontend
+    origin: "https://lms-frontend-5g2b.onrender.com", // update this when deploying frontend
     credentials: true
 }));
 
