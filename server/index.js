@@ -9,33 +9,36 @@ import mediaRoute from "./routes/media.route.js";
 import purchaseRoute from "./routes/purchaseCourse.route.js";
 import courseProgressRoute from "./routes/courseProgress.route.js";
 
+// Load environment variables
 dotenv.config({});
 
-// call database connection here
+// Connect to the database
 connectDB();
-const app = express();
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-// default middleware
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
-
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true
+    origin: "http://localhost:5173", // update this when deploying frontend
+    credentials: true
 }));
- 
-// apis
+
+// API Routes
 app.use("/api/v1/media", mediaRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/purchase", purchaseRoute);
 app.use("/api/v1/progress", courseProgressRoute);
- 
- 
+
+// Root route (for health check or basic response)
+app.get("/", (req, res) => {
+    res.send("🎓 LMS Backend is Live");
+});
+
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server listen at port ${PORT}`);
-})
-
-
+    console.log(`🚀 Server running on port ${PORT}`);
+});
